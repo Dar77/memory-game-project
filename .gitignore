@@ -1,0 +1,7 @@
+NOT-USED
+node_modules
+dist/*
+.DS_Store
+.htmlhintrc
+.stylelintrc
+.eslintrc.json
