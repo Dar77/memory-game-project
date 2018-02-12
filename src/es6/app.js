@@ -1,26 +1,22 @@
 /*
  * Create a list that holds all of your cards
  */
-const deck = [
+const pack = [
 	'fa fa-diamond',
 	'fa fa-paper-plane-o',
 	'fa fa-anchor',
 	'fa fa-bolt',
 	'fa fa-cube',
-	'fa fa-anchor',
 	'fa fa-leaf',
 	'fa fa-bicycle',
-	'fa fa-diamond',
-	'fa fa-bomb',
-	'fa fa-leaf',
-	'fa fa-bomb',
-	'fa fa-bolt',
-	'fa fa-bicycle',
-	'fa fa-paper-plane-o',
-	'fa fa-cube'
+	'fa fa-bomb'
 ];
 
-const visibleCards = [];
+// use es6 spread operator to double pack to create the games deck
+const deck = [...pack, ...pack];
+
+let visibleCards = [];
+const matchingCards = [];
 
 
 // Display the cards on the page
@@ -44,13 +40,10 @@ function shuffle(array) {
 shuffle(deck);
 
 // loop through each card and create its HTML
-const displayCards = deck => {
-	const selection = document.getElementById('deck');
+const displayCards = deck => { // es6 arrow function
 	for (card of deck) {
-		const elem = document.createElement('li');
-		elem.className = 'card';
-		selection.appendChild(elem);
-		elem.innerHTML = `<i class=" ${card} "></i>`;
+		const placeCard = `<li class="card"><i class=" ${card} "></i></li>`; // es6 template literal
+		$('#deck').append(placeCard);
 	}
 };
 
@@ -60,42 +53,66 @@ displayCards(deck);
 
 // set up the event listener for a card. If a card is clicked:
 const cardClicked = function() {
-	const selectedCard = document.getElementById('deck');
-	selectedCard.addEventListener('click', function(e) {
+	$('#deck').on('click', 'li', function(e){
 		const target = e.target;
 		displayCard(target); // - display the card's symbol (put this functionality in another function that you call from this one)
 		openCards(target); // - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
-	}, false);
+		console.log(target, 'this is target');
+	});
 };
 
 cardClicked();
 
 //  - display the card's symbol
-const displayCard = display => display.className = 'card match';
+const displayCard = display => $(display).addClass('show');
 
 //  - add the card to a *list* of "open" cards
 const openCards = card => {
-	if (visibleCards.length === 2) { //  - if the list already has another card, check to see if the two cards match
-		let match = false;
-		checkMatch();
+	if (visibleCards.length > 0) { //  - if the list already has another card, check to see if the two cards match
+		visibleCards.push(card); // add the selected card to the visible cards array
+		checkMatch(card);
+	} else {
+	visibleCards.push(card); // add the selected card to the visible cards array
 	}
-	visibleCards.push(card);
 	console.log(visibleCards, 'visibleCards content');
 };
 
 //  - if the list already has another card, check to see if the two cards match
-const checkMatch = () => {
-	//TODO
+const checkMatch = clicked => {
+	const a = $(clicked).find('i').attr('class'); //compare the class values
+	const b = $(visibleCards[0]).find('i').attr('class');
+	console.log(a, 'this is a', b, 'this is b' );
+	const match1 = clicked;
+	const match2 = visibleCards[0];
+
+	if (a == b) { // + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
+			console.log('this is match', a, 'this is a', b, 'this is b' );
+			matching(match1, match2);
+		} else { // + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
+			console.log('does not match');
+			setTimeout(function () { // delay the hideCards function, so player can see the cards do not match
+				hideCards();
+			}, 600);
+		}
 };
 
-//    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
-const matching = () => {
-	//TODO
+// process matching cards
+const matching = (match1, match2) => {
+	matchingCards.push(match1, match2);
+	for (card of visibleCards) {
+		$(card).removeClass('show').addClass('match');
+	}
+	visibleCards = [];
+	console.log(matchingCards, 'matching cards array');
 };
 
-//    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
+// process cards that do not match
 const hideCards = () => {
-	//TODO
+	console.log('hideCards');
+	for (card of visibleCards) {
+		$(card).removeClass('show');
+	}
+	visibleCards = [];
 };
 
 //    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
