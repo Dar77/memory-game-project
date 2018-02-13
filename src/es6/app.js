@@ -19,10 +19,8 @@ let visibleCards = [];
 const matchingCards = [];
 
 
-// Display the cards on the page
-
-// Shuffle function from http://stackoverflow.com/a/2450976
-function shuffle(array) {
+// Display the cards on the page - shuffle function from http://stackoverflow.com/a/2450976
+const shuffle = array => {
     var currentIndex = array.length, temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
@@ -52,7 +50,7 @@ displayCards(deck);
 
 
 // set up the event listener for a card. If a card is clicked:
-const cardClicked = function() {
+const cardClicked = () => {
 	$('#deck').on('click', 'li', function(e){
 		const target = e.target;
 		displayCard(target); // - display the card's symbol (put this functionality in another function that you call from this one)
@@ -77,7 +75,7 @@ const openCards = card => {
 	console.log(visibleCards, 'visibleCards content');
 };
 
-//  - if the list already has another card, check to see if the two cards match
+//  - check to see if the two cards match
 const checkMatch = clicked => {
 	const a = $(clicked).find('i').attr('class'); //compare the class values
 	const b = $(visibleCards[0]).find('i').attr('class');
@@ -98,11 +96,11 @@ const checkMatch = clicked => {
 
 // process matching cards
 const matching = (match1, match2) => {
-	matchingCards.push(match1, match2);
+	matchingCards.push(match1, match2); // add the matching cards to the matching cards array
 	for (card of visibleCards) {
 		$(card).removeClass('show').addClass('match');
 	}
-	visibleCards = [];
+	visibleCards = []; // clear the visibleCards array
 	console.log(matchingCards, 'matching cards array');
 };
 
@@ -112,7 +110,7 @@ const hideCards = () => {
 	for (card of visibleCards) {
 		$(card).removeClass('show');
 	}
-	visibleCards = [];
+	visibleCards = []; // clear the visibleCards array
 };
 
 //    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
