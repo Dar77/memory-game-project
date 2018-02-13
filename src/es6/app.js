@@ -15,9 +15,9 @@ const pack = [
 // use es6 spread operator to double pack to create the games deck
 const deck = [...pack, ...pack];
 
-let visibleCards = [];
-const matchingCards = [];
-
+let visibleCards = []; // array for cards being compared
+const matchingCards = []; // array for matching cards
+let moveCount = 0; // initial move count
 
 // Display the cards on the page - shuffle function from http://stackoverflow.com/a/2450976
 const shuffle = array => {
@@ -70,8 +70,9 @@ const openCards = card => {
 		visibleCards.push(card); // add the selected card to the visible cards array
 		checkMatch(card);
 	} else {
-	visibleCards.push(card); // add the selected card to the visible cards array
+		visibleCards.push(card); // add the selected card to the visible cards array
 	}
+	moveCounter(); // + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
 	console.log(visibleCards, 'visibleCards content');
 };
 
@@ -98,7 +99,7 @@ const checkMatch = clicked => {
 const matching = (match1, match2) => {
 	matchingCards.push(match1, match2); // add the matching cards to the matching cards array
 	for (card of visibleCards) {
-		$(card).removeClass('show').addClass('match');
+		$(card).removeClass('show').addClass('match'); // change the matching cards class to match
 	}
 	visibleCards = []; // clear the visibleCards array
 	console.log(matchingCards, 'matching cards array');
@@ -113,9 +114,10 @@ const hideCards = () => {
 	visibleCards = []; // clear the visibleCards array
 };
 
-//    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
+// increment the move counter and display it on the page
 const moveCounter = () => {
-	//TODO
+	moveCount++;
+	$('.moves').text(moveCount);
 };
 
 //    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
