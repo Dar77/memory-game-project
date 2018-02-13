@@ -73,6 +73,7 @@ const openCards = card => {
 		visibleCards.push(card); // add the selected card to the visible cards array
 	}
 	moveCounter(); // + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
+	allMatched(); // + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
 	console.log(visibleCards, 'visibleCards content');
 };
 
@@ -84,6 +85,8 @@ const checkMatch = clicked => {
 	const match1 = clicked;
 	const match2 = visibleCards[0];
 
+	// TODO
+	// needs a check for clicking twice on the same card that currently results in a match
 	if (a == b) { // + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
 			console.log('this is match', a, 'this is a', b, 'this is b' );
 			matching(match1, match2);
@@ -120,7 +123,24 @@ const moveCounter = () => {
 	$('.moves').text(moveCount);
 };
 
-//    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
+// if all cards have matched, display a message with the final score
 const allMatched = () => {
-	//TODO
+	// TODO
+	// needs to be added to a modal that covers game screen (preventing further interaction with cards)
+	if (matchingCards.length === 15) {
+		const msg = `<p>You have matched all the cards! You completed the game in ${moveCount} moves.</p>`;
+		$('.matched').append(msg);
+	}
 };
+
+/* new game
+const newGame = () => {
+	// TODO
+	// needs to be added as an onclick function for refresh icon
+
+	visibleCards = [];
+	matchingCards = [];
+	moveCount = 0;
+	shuffle(deck);
+}
+*/
