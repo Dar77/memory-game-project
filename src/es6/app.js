@@ -12,11 +12,12 @@ const pack = [
 	'fa fa-bomb'
 ];
 
-// use es6 spread operator to double pack to create the games deck
+// use es6 spread operator to double the pack to create the games deck
 const deck = [...pack, ...pack];
 
 let visibleCards = []; // array for cards being compared
 const matchingCards = []; // array for matching cards
+let cardIndex = 0; // initial value for the cards index
 let moveCount = 0; // initial move count
 
 // Display the cards on the page - shuffle function from http://stackoverflow.com/a/2450976
@@ -39,8 +40,8 @@ shuffle(deck);
 
 // loop through each card and create its HTML
 const displayCards = deck => { // es6 arrow function
-	for (card of deck) {
-		const placeCard = `<li class="card"><i class=" ${card} "></i></li>`; // es6 template literal
+	for (card of deck) { // give each card a unique 'id' value and a 'class' value to show its icon
+		const placeCard = `<li id="index${cardIndex++}" class="card"><i class="${card}"></i></li>`; // es6 template literal
 		$('#deck').append(placeCard);
 	}
 };
@@ -81,17 +82,18 @@ const openCards = card => {
 const checkMatch = clicked => {
 	const a = $(clicked).find('i').attr('class'); //compare the class values
 	const b = $(visibleCards[0]).find('i').attr('class');
-	console.log(a, 'this is a', b, 'this is b' );
+	const ia = $(visibleCards[1]).attr('id'); // compare the id values (picks up if the same card is clicked twice)
+	const ib = $(visibleCards[0]).attr('id');
 	const match1 = clicked;
 	const match2 = visibleCards[0];
 
 	// TODO
 	// needs a check for clicking twice on the same card that currently results in a match
-	if (a == b) { // + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
-			console.log('this is match', a, 'this is a', b, 'this is b' );
+	if (a == b && ia != ib) { // + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
+			console.log('this is a match', a, 'this is a', ia, 'this is ia', b, 'this is b', ib, 'this is ib');
 			matching(match1, match2);
 		} else { // + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
-			console.log('does not match');
+			console.log('does not match', a, 'this is b', ia, 'this is ia', b, 'this is b', ib, 'this is ib');
 			setTimeout(function () { // delay the hideCards function, so player can see the cards do not match
 				hideCards();
 			}, 600);
@@ -115,6 +117,7 @@ const hideCards = () => {
 		$(card).removeClass('show');
 	}
 	visibleCards = []; // clear the visibleCards array
+	console.log(visibleCards, 'visibleCards content');
 };
 
 // increment the move counter and display it on the page
