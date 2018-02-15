@@ -64,7 +64,7 @@ const cardClicked = () => {
 cardClicked();
 
 //  - display the card's symbol
-const displayCard = display => $(display).addClass('show');
+const displayCard = display => $(display).addClass('show open');
 
 //  - add the card to a *list* of "open" cards
 const openCards = card => {
@@ -97,8 +97,11 @@ const checkMatch = clicked => {
 		} else { // + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
 			console.log('does not match', a, 'this is b', ia, 'this is ia', b, 'this is b', ib, 'this is ib');
 			setTimeout(function () { // delay the hideCards function, so player can see the cards do not match
+			for (card of visibleCards) {
+				$(card).removeClass('open'); // remove the 'open' class
+			}
 				hideCards();
-			}, 600);
+			}, 1100);
 		}
 };
 
@@ -169,8 +172,8 @@ const allMatched = () => {
 	// needs to be added to a modal that covers game screen (preventing further interaction with cards)
 	const l = matchingCards.length;
 	if (l === 16 && l < 17) {
-		const msg = `<section class="matched"><h2>All Matched!</h2><p>You have matched all the cards!</p><p>You completed the game in ${moveCount} moves.</p></section>`;
-		$('.container').append(msg);
+		const msg = `<section class="matched"><div class =info><h2>All Matched!</h2><p>You have matched all the cards!</p><p>You completed the game in ${moveCount} moves.</p></div></section>`;
+		$('.container').append(msg).fadeIn(1500);
 	}
 };
 
