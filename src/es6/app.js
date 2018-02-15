@@ -19,6 +19,7 @@ let visibleCards = []; // array for cards being compared
 const matchingCards = []; // array for matching cards
 let cardIndex = 0; // initial value for the cards index
 let moveCount = 0; // initial move count
+let stars = 5; // initial value for star rating
 
 // Display the cards on the page - shuffle function from http://stackoverflow.com/a/2450976
 const shuffle = array => {
@@ -74,6 +75,7 @@ const openCards = card => {
 		visibleCards.push(card); // add the selected card to the visible cards array
 	}
 	moveCounter(); // + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
+	removeStars();
 	allMatched(); // + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
 	console.log(visibleCards, 'visibleCards content');
 };
@@ -125,6 +127,41 @@ const moveCounter = () => {
 	moveCount++;
 	$('.moves').text(moveCount);
 };
+
+// display the star rating
+const rating = () => {
+	for (let i = 0; i < stars; i++) {
+		const starRating = `<li><i class="fa fa-star"></i></li>`;
+		$('.stars').append(starRating);
+	}
+};
+
+rating();
+
+// remove stars
+const removeStars = () => {
+	const str = $('.stars')
+	let m = moveCount;
+	if (m > 26 && m <= 36) { // check the players current number of moves
+		stars = 4;
+		$('.stars .fa').remove(); // remove stars based on this
+		rating();
+	} else if (m > 36 && m <= 46) {
+		stars = 3;
+		$('.stars .fa').remove();
+		rating();
+	} else if (m > 46 && m <= 56) {
+		stars = 2;
+		$('.stars .fa').remove();
+		rating();
+	} else if (m > 56) {
+		stars = 1;
+		$('.stars .fa').remove();
+		rating();
+	} else {
+		stars = 5;
+	}
+}
 
 // if all cards have matched, display a message with the final score
 const allMatched = () => {
