@@ -16,7 +16,7 @@ const pack = [
 const deck = [...pack, ...pack];
 
 let visibleCards = []; // array for cards being compared
-const matchingCards = []; // array for matching cards
+let matchingCards = []; // array for matching cards
 let cardIndex = 0; // initial value for the cards index
 let moveCount = 0; // initial move count
 let stars = 5; // initial value for star rating
@@ -174,14 +174,23 @@ const allMatched = () => {
 	}
 };
 
-/* new game
+// new game
 const newGame = () => {
-	// TODO
-	// needs to be added as an onclick function for refresh icon
-
-	visibleCards = [];
-	matchingCards = [];
-	moveCount = 0;
-	shuffle(deck);
+	$('.restart').on('click', function() { // reset all the games components to their initial state
+		visibleCards = [];
+		matchingCards = [];
+		cardIndex = 0;
+		moveCount = 0;
+		stars = 5;
+		$('.moves').text(0);
+		$('.stars .fa').remove();
+		rating();
+		$('.matched').remove();
+		$('.deck li').remove();
+		shuffle(deck);
+		displayCards(deck);
+	});
 }
-*/
+
+newGame();
+
