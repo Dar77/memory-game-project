@@ -130,9 +130,10 @@ const moveCounter = () => {
 const allMatched = () => {
 	// TODO
 	// needs to be added to a modal that covers game screen (preventing further interaction with cards)
-	if (matchingCards.length === 15) {
-		const msg = `<p>You have matched all the cards! You completed the game in ${moveCount} moves.</p>`;
-		$('.matched').append(msg);
+	const l = matchingCards.length;
+	if (l === 16 && l < 17) {
+		const msg = `<section class="matched"><h2>All Matched!</h2><p>You have matched all the cards!</p><p>You completed the game in ${moveCount} moves.</p></section>`;
+		$('.container').append(msg);
 	}
 };
 

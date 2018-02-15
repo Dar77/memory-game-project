@@ -18,7 +18,7 @@ body {
 
 body {
     background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */
-    font-family: 'Coda', cursive;
+    font: 1em/1.6em 'Coda', cursive;
 }
 
 .container {
@@ -29,8 +29,11 @@ body {
 }
 
 h1 {
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 300;
+    font: 2em/1.6em 'Open Sans', sans-serif;
+}
+
+h2 {
+    font: 1.5em/1.5em 'Open Sans', sans-serif;
 }
 
 /*
@@ -66,7 +69,7 @@ h1 {
 }
 
 .deck .card.open {
-    transform: rotateY(0);
+    transform: rotateY(180);
     background: #02b3e4;
     cursor: default;
 }
@@ -106,4 +109,23 @@ h1 {
 .score-panel .restart {
     float: right;
     cursor: pointer;
+}
+
+/*
+Styles for all cards matching screen
+*/
+section.matched {
+    position: absolute;
+    top: 140px;
+    width: 660px;
+    min-height: 624px;
+    background: #01011d8f;
+    padding: 32px;
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    color: white;
+    font-size: 1.7em;
 }
