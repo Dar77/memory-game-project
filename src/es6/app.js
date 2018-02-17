@@ -20,6 +20,7 @@ let matchingCards = []; // array for matching cards
 let cardIndex = 0; // initial value for the cards index
 let moveCount = 0; // initial move count
 let stars = 5; // initial value for star rating
+let stopTimer = false; // initial value for the timer
 
 // Display the cards on the page - shuffle function from http://stackoverflow.com/a/2450976
 const shuffle = array => {
@@ -168,18 +169,49 @@ const removeStars = () => {
 
 // if all cards have matched, display a message with the final score
 const allMatched = () => {
-	// TODO
-	// needs to be added to a modal that covers game screen (preventing further interaction with cards)
 	const l = matchingCards.length;
 	if (l === 16 && l < 17) {
-		const msg = `<section class="matched"><div class =info><h2>All Matched!</h2><p>You have matched all the cards!</p><p>You completed the game in ${moveCount} moves.</p></div></section>`;
-		$('.container').append(msg).fadeIn(1500);
+		stopTimer = true; // stop the timer
+		const msg = `<section class="matched"><div class =info><h2>All Matched!</h2><p>You have matched all the cards!</p><p>You completed the game in ${$('.timer').text()} and ${moveCount} moves.</p></div></section>`;
+		$('.container').append(msg).fadeIn(2000);
 	}
 };
 
+// game timer - startTimer function from https://stackoverflow.com/questions/31559469/how-to-create-a-simple-javascript-timer
+const startTimer = duration => {
+    let timer = duration, minutes, seconds;
+    let time = setInterval(function () {
+        minutes = parseInt(timer / 60, 10)
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? `0${minutes}` : minutes; // if value is less than 10 add a zero in front
+        seconds = seconds < 10 ? `0${seconds}` : seconds;
+
+        $('.timer').text(`${minutes}:${seconds}`);
+
+        if (stopTimer === true) { // if the game has been re-started
+            clearInterval(time);
+            gameTime();
+            stopTimer = false;
+        } else if (--timer < 0) { // if the timer has reached 0
+            clearInterval(time);
+            stopTimer = false;
+        }
+    }, 1000);
+}
+
+const gameTime = () => {
+	//$('.card').on('click', function(e){ // add an onclick event to start timer
+    	startTimer(60 * 5); // call startTimer with the count downs initial value
+	//});
+};
+
+gameTime();
+
 // new game
 const newGame = () => {
-	$('.restart').on('click', function() { // reset all the games components to their initial state
+	$('.restart').on('click', function() { // reset all the games components to their initial state etc.
+		stopTimer = true; // stop the timer
 		visibleCards = [];
 		matchingCards = [];
 		cardIndex = 0;
