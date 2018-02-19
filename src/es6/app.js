@@ -69,7 +69,8 @@ const displayCard = display => $(display).addClass('show open');
 
 //  - add the card to a *list* of "open" cards
 const openCards = card => {
-	if (visibleCards.length > 0) { //  - if the list already has another card, check to see if the two cards match
+	let l = visibleCards.length;
+	if (l > 0 && l < 2) { //  - if the list already has another card, check to see if the two cards match
 		visibleCards.push(card); // add the selected card to the visible cards array
 		checkMatch(card);
 	} else {
@@ -90,8 +91,6 @@ const checkMatch = clicked => {
 	const match1 = clicked;
 	const match2 = visibleCards[0];
 
-	// TODO
-	// needs a check for clicking twice on the same card that currently results in a match
 	if (a == b && ia != ib) { // + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
 			console.log('this is a match', a, 'this is a', ia, 'this is ia', b, 'this is b', ib, 'this is ib');
 			matching(match1, match2);
@@ -171,13 +170,13 @@ const removeStars = () => {
 const allMatched = () => {
 	const l = matchingCards.length;
 	if (l === 16 && l < 17) {
-		stopTimer = true; // stop the timer
+
 		const msg = `<section class="matched"><div class =info><h2>All Matched!</h2><p>You have matched all the cards!</p><p>You completed the game in ${$('.timer').text()} and ${moveCount} moves.</p></div></section>`;
 		$('.container').append(msg).fadeIn(2000);
 	}
 };
 
-// game timer - startTimer function from https://stackoverflow.com/questions/31559469/how-to-create-a-simple-javascript-timer
+// game timer - based on Timer function from https://stackoverflow.com/questions/31559469/how-to-create-a-simple-javascript-timer
 const startTimer = duration => {
     let timer = duration, minutes, seconds;
     let time = setInterval(function () {
@@ -186,15 +185,12 @@ const startTimer = duration => {
 
         minutes = minutes < 10 ? `0${minutes}` : minutes; // if value is less than 10 add a zero in front
         seconds = seconds < 10 ? `0${seconds}` : seconds;
+        $('.timer').text(`${minutes}:${seconds}`); // add the time to document
 
-        $('.timer').text(`${minutes}:${seconds}`);
-
-        if (stopTimer === true) { // if the game has been re-started
+        // check if the game has been restarted or all cards have been matched or the timer has reached 0
+        if (stopTimer === true || matchingCards.length === 16 || --timer < 0) {
             clearInterval(time);
             gameTime();
-            stopTimer = false;
-        } else if (--timer < 0) { // if the timer has reached 0
-            clearInterval(time);
             stopTimer = false;
         }
     }, 1000);
