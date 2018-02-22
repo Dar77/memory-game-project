@@ -15,12 +15,13 @@ const pack = [
 // use es6 spread operator to double the pack to create the games deck
 const deck = [...pack, ...pack];
 
-let visibleCards = []; // array for cards being compared
-let matchingCards = []; // array for matching cards
-let cardIndex = 0; // initial value for the cards index
-let moveCount = 0; // initial move count
-let stars = 5; // initial value for star rating
-let stopTimer = false; // initial value for the timer
+let visibleCards = [], // array for cards being compared
+	matchingCards = [], // array for matching cards
+	cardIndex = 0, // initial value for the cards index
+	moveCount = 0, // initial move count
+	stars = 5, // initial value for star rating
+	timeUp = false,
+	time;
 
 // Display the cards on the page - shuffle function from http://stackoverflow.com/a/2450976
 const shuffle = array => {
@@ -35,14 +36,14 @@ const shuffle = array => {
     }
 
     return array;
-}
+};
 
 // shuffle the list of cards using the provided "shuffle" function
 shuffle(deck);
 
 // loop through each card and create its HTML
 const displayCards = deck => { // es6 arrow function
-	for (card of deck) { // give each card a unique 'id' value and a 'class' value to show its icon
+	for (let card of deck) { // give each card a unique 'id' value and a 'class' value to show its icon
 		const placeCard = `<li id="index${cardIndex++}" class="card"><i class="${card}"></i></li>`; // es6 template literal
 		$('#deck').append(placeCard);
 	}
@@ -58,7 +59,6 @@ const cardClicked = () => {
 		const target = e.target;
 		displayCard(target); // - display the card's symbol (put this functionality in another function that you call from this one)
 		openCards(target); // - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
-		console.log(target, 'this is target');
 	});
 };
 
@@ -79,7 +79,6 @@ const openCards = card => {
 	moveCounter(); // + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
 	removeStars();
 	allMatched(); // + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
-	console.log(visibleCards, 'visibleCards content');
 };
 
 //  - check to see if the two cards match
@@ -92,11 +91,9 @@ const checkMatch = clicked => {
 	const match2 = visibleCards[0];
 
 	if (a == b && ia != ib) { // + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
-			console.log('this is a match', a, 'this is a', ia, 'this is ia', b, 'this is b', ib, 'this is ib');
 			matching(match1, match2);
 		} else { // + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
-			console.log('does not match', a, 'this is b', ia, 'this is ia', b, 'this is b', ib, 'this is ib');
-			setTimeout(function () { // delay the hideCards function, so player can see the cards do not match
+			setTimeout(() => { // delay the hideCards function, so player can see the cards do not match
 			for (card of visibleCards) {
 				$(card).removeClass('open'); // remove the 'open' class
 			}
@@ -108,21 +105,18 @@ const checkMatch = clicked => {
 // process matching cards
 const matching = (match1, match2) => {
 	matchingCards.push(match1, match2); // add the matching cards to the matching cards array
-	for (card of visibleCards) {
+	for (let card of visibleCards) {
 		$(card).removeClass('show').addClass('match'); // change the matching cards class to match
 	}
 	visibleCards = []; // clear the visibleCards array
-	console.log(matchingCards, 'matching cards array');
 };
 
 // process cards that do not match
 const hideCards = () => {
-	console.log('hideCards');
-	for (card of visibleCards) {
+	for (let card of visibleCards) {
 		$(card).removeClass('show');
 	}
 	visibleCards = []; // clear the visibleCards array
-	console.log(visibleCards, 'visibleCards content');
 };
 
 // increment the move counter and display it on the page
@@ -166,20 +160,24 @@ const removeStars = () => {
 	}
 }
 
+// initially hide the info screens for 'all cards matched' and 'out of time'
+const hideScreens = () => $('.all-matched, .out-of-time').hide();
+
+hideScreens();
+
 // if all cards have matched, display a message with the final score
 const allMatched = () => {
-	const l = matchingCards.length;
-	if (l === 16 && l < 17) {
-
-		const msg = `<section class="matched"><div class =info><h2>All Matched!</h2><p>You have matched all the cards!</p><p>You completed the game in ${$('.timer').text()} and ${moveCount} moves.</p></div></section>`;
-		$('.container').append(msg).fadeIn(2000);
+	const ln = matchingCards.length;
+	if (ln === 16) {
+		const msg = `<div class="info del"><h2>All Matched!</h2><p>You have matched all the cards!</p><p>You completed the game in ${$('.timer').text()} and ${moveCount} moves.</p></div>`;
+		$('.all-matched').append(msg).fadeIn(1500);
 	}
 };
 
 // game timer - based on Timer function from https://stackoverflow.com/questions/31559469/how-to-create-a-simple-javascript-timer
 const startTimer = duration => {
     let timer = duration, minutes, seconds;
-    let time = setInterval(function () {
+    time = setInterval(() => {
         minutes = parseInt(timer / 60, 10)
         seconds = parseInt(timer % 60, 10);
 
@@ -187,41 +185,61 @@ const startTimer = duration => {
         seconds = seconds < 10 ? `0${seconds}` : seconds;
         $('.timer').text(`${minutes}:${seconds}`); // add the time to document
 
-        // check if the game has been restarted or all cards have been matched or the timer has reached 0
-        if (stopTimer === true || matchingCards.length === 16 || --timer < 0) {
+        // check if all cards have been matched or the timer has reached 0
+        if (matchingCards.length === 16) {
             clearInterval(time);
-            gameTime();
-            stopTimer = false;
+			$('.timer').text(' ');
+        } else if (--timer < 0) {
+            clearInterval(time);
+            timeUp = true;
+            outOfTime();
         }
     }, 1000);
 }
 
+
 const gameTime = () => {
-	//$('.card').on('click', function(e){ // add an onclick event to start timer
-    	startTimer(60 * 5); // call startTimer with the count downs initial value
-	//});
+	$('.start-button').on('click', function(){ // add an onclick event to start timer
+    	startTimer(60 * 1); // call startTimer with the count downs initial value
+    	$('.start').fadeOut(1500);
+	});
 };
 
 gameTime();
 
-// new game
-const newGame = () => {
-	$('.restart').on('click', function() { // reset all the games components to their initial state etc.
-		stopTimer = true; // stop the timer
+// out of time
+const outOfTime = () => { // stop the game and display a message if the player runs out of time
+	if (timeUp === true) {
+		const msg = `<div class="info del"><h2>Sorry, you're out of time!</h2><p>You matched ${matchingCards.length} cards. Time's up ${$('.timer').text()}.</p></div>`;
+		$('.out-of-time').append(msg).fadeIn(1500);
+	}
+};
+
+outOfTime();
+
+// reset game
+const newGame = () => { // reset all the games components to their initial state etc.
+	$('.restart').on('click', function() {
+		clearInterval(time);
+		$('.all-matched, .out-of-time').hide(); // hide info screens
+    	$('.start').show(); // show the replay screen
 		visibleCards = [];
 		matchingCards = [];
 		cardIndex = 0;
 		moveCount = 0;
 		stars = 5;
+		timeUp = false;
 		$('.moves').text(0);
 		$('.stars .fa').remove();
 		rating();
 		$('.matched').remove();
 		$('.deck li').remove();
+		$('.del').remove(); // removes previous screen message to prevent repeats
 		shuffle(deck);
 		displayCards(deck);
 	});
-}
+};
 
 newGame();
+
 
