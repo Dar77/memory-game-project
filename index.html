@@ -3,33 +3,43 @@
 <head>
     <meta charset="utf-8">
     <title>Matching Game</title>
-    <meta name="description" content="">
+    <meta name="description" content="memory game, match the cards">
     <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-    <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
+    <link href="https://fonts.googleapis.com/css?family=Special+Elite" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <!-- below - comments required for gulp-useref, css/app.min.css will be the new location and file name-->
     <!--build:css css/app.min.css-->
     <link rel="stylesheet" href="src/css/app.css">
     <!-- endbuild -->
 </head>
 <body>
-
     <div class="container">
         <header>
             <h1>Matching Game</h1>
         </header>
 
-        <section class="score-panel">
+        <div class="score-panel">
         	<ul class="stars"></ul>
-
-        	<span class="moves">0</span> Moves
-
+        	<p class="moves-counter">Moves <span class="moves">0</span></p>
+            <p class="timer"></p>
             <div class="restart">
-        		<i class="fa fa-repeat"></i>
+        		<span>Reset </span><i class="fa fa-repeat"></i>
         	</div>
-        </section>
+        </div>
 
+        <!-- the deck of cards -->
         <ul id="deck" class="deck"></ul>
 
+        <!-- below - game info screens -->
+        <div class="start">
+            <div class="info">
+                <h2>Match all the cards!</h2>
+                <p>You have one minute to match the cards into pairs.</p>
+            </div>
+            <button class="start-button">Play</button>
+        </div>
+        <div class="all-matched"></div>
+        <div class="out-of-time"></div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- below - comments required for gulp-useref, js/main.min.js will be the new location and file name-->
