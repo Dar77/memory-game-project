@@ -17,8 +17,8 @@ body {
 }
 
 body {
-    background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */
-    font: 1em/1.6em 'Coda', cursive;
+    background: #ddecfe;
+    font: 1em/1.6em 'Roboto', sans-serif;
 }
 
 .container {
@@ -29,21 +29,21 @@ body {
 }
 
 h1 {
-    font: 2em/1.6em 'Open Sans', sans-serif;
+    font: 4em/1.6em 'Special Elite', cursive;
+    color: #3f5aee;
 }
 
 h2 {
-    font: 1.5em/1.5em 'Open Sans', sans-serif;
+    font: 1.5em/1.5em 'Special Elite', cursive;
 }
 
 /*
- * Styles for the deck of cards
+ * styles for the deck of cards
  */
-
 .deck {
     width: 660px;
     min-height: 680px;
-    background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
+    background: linear-gradient(160deg, #3d58ee 0%, #a2aaf0 100%);
     padding: 32px;
     border-radius: 10px;
     box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
@@ -68,7 +68,7 @@ h2 {
     align-items: center;
     box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
     transform-style: preserve-3d;
-    transition: transform 1.2s;
+    transition: transform 1s ease-out;
 }
 
 .deck .card.open {
@@ -88,16 +88,19 @@ h2 {
     cursor: default;
     background: #02ccba;
     font-size: 33px;
+    border: 2px solid #72f672;
 }
 
 /*
- * Styles for the Score Panel
+ * styles for the score panel
  */
-
 .score-panel {
-    text-align: left;
-    width: 345px;
+    width: 680px;
     margin-bottom: 10px;
+    display: flex;
+    justify-content: space-around;
+    font-size: 1.3em;
+    color: #3f5aee;
 }
 
 .score-panel .stars {
@@ -117,28 +120,64 @@ h2 {
     cursor: pointer;
 }
 
-/*
-Styles for all cards matching info screen
-*/
-.matched {
-    position: absolute;
-    top: 140px;
-    width: 660px;
-    min-height: 624px;
+.moves-counter {
+    margin: 0;
+    text-align: center;
+    width: 100px;
 }
 
-.info {
-    width: 80%;
-    height: 80%;
-    background: #01011db0;
-    padding: 32px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-size: 1.3em;
-    border: 1px solid white;
+.timer {
+    margin: 0;
+    text-align: left;
+    width: 60px;
+}
+
+/*
+styles for start screen, all cards matching screen, out of time screen
+*/
+.start,
+.all-matched,
+.out-of-time {
+    position: absolute;
+    top: 223px;
+    width: 660px;
+    height: 680px;
     border-radius: 10px;
+    background: rgba(1, 1, 29, 0.3411764705882353);
+}
+
+/*
+styles for button
+*/
+button {
+    display: block;
     margin: 0 auto;
+    padding: 10px 20px;
+    font: 1.6em/1.6em 'Special Elite', cursive;
+    cursor: pointer;
+    z-index: 2000;
+    border: 3px dotted white;
+    border-radius: 10px;
+    background: #03A9F4;
+    color: white;
+}
+
+button:hover {
+    background: #4671a3;
+    transition: background 0.5s;
+}
+
+/*
+styles for info screens
+*/
+.info {
+width: 80%;
+    background: rgba(63, 90, 238, 0.8509803921568627);
+    padding: 32px;
+    text-align: center;
+    color: #fff;
+    font-size: 1.3em;
+    border-radius: 10px;
+    border: 3px solid white;
+    margin: 80px auto;
 }
