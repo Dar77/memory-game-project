@@ -52,10 +52,10 @@ ___
   - Display the card's symbol (put this functionality in another function that you call from this one)
   - Add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
   - If the list already has another card, check to see if the two cards match
- 1. If the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- 2. If the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- 3. Increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- 4. If all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
+  - If the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
+  - If the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
+  - Increment the move counter and display it on the page (put this functionality in another function that you call from this one)
+  - If all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
 ___
 
 
