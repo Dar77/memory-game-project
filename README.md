@@ -12,7 +12,7 @@ ___
 
 Visit game: [visit game](http://www.it48.xyz/memory-game-project)
 
-![Game screen shot](src/img/readme-images/memory-game-screen-shot.jpg)
+![Game screen shot](src/img/readme-images/memory-game-screen.jpg)
 ___
 
 
@@ -27,7 +27,7 @@ ___
 - If they match they must remain visible.
 - If they do not match they must turn back over.
 - The game must complete when all the cards are matched.
-- A game reset button
+- Should have a game reset button.
 
 
 #### Extra
@@ -35,7 +35,7 @@ ___
 - Animation and styling effects for viewing and displaying the cards.
 - A counter to keep track of the number of moves the player has made.
 - Star rating that reduces based on the number of moves it takes to match all the cards.
-- A Timer that counts down for each game.
+- A timer that counts down for each game.
 - Game information screens for start, out of time and cards all matched.
 
 
