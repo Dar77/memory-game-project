@@ -61,7 +61,7 @@ gulp.task('convertEs6', function() { //ref, stack overflow - https://github.com/
     .pipe(size({title: 'js'}))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('dist/js'))
-    .pipe(gulp.dest('.tmp/js'))
+    .pipe(gulp.dest('.tmp/js'));
 });
 
 // copy images to dist directory (same technique could be used to copy any files across to dist)
