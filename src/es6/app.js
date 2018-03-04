@@ -94,7 +94,7 @@ const checkMatch = clicked => {
 			matching(match1, match2);
 		} else { // + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
 			setTimeout(() => { // delay the hideCards function, so player can see the cards do not match
-			for (card of visibleCards) {
+			for (let card of visibleCards) {
 				$(card).removeClass('open'); // remove the 'open' class
 			}
 				hideCards();
