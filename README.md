@@ -12,7 +12,7 @@ ___
 
 Visit game: [visit game](http://www.it48.xyz/memory-game-project)
 
-![Game screen shot](src/img/readme-images/memory-game-screen.jpg)
+![Game screen shot](src/images/readme-images/memory-game-screen.jpg)
 ___
 
 
