@@ -2,7 +2,7 @@ ___
 
 # Memory Game Project
 
-For this project I wanted to make a card matching game in which cards are shuffled into a random order and placed face down. Cards are then revealed by clicking on them and compared to see if they match. If they do not match the cards are turned back face down. If they match they stay visible. The player must match all the cards in a set time. I wanted to make use of new **ES6** javascript to write the game and use the **gulp** build tool to process the **ES6** back to **ES5** code for the distribution version.
+For this project I wanted to make a card matching game in which cards are shuffled into a random order and placed face down. Cards are then revealed by clicking on them and compared to see if they match. If they do not match the cards are turned back face down. If they match they stay visible. The player must match all the cards in a set time. I wanted to make use of new **ES6** javascript to write the game and use the **gulp** build tool to process the **ES6** code back to **ES5** for the distribution version.
 
 This project is adapted from Udacity's memory game project which is part of the **Frontend Nanodegree** [program](https://www.udacity.com/course/front-end-web-developer-nanodegree--nd001).
 ___
@@ -10,7 +10,7 @@ ___
 
 ### Memory Game
 
-Visit game: [visit game](http://www.it48.xyz/memory-game-project)
+Visit: [game](http://www.it48.xyz/memory-game-project)
 
 ![Game screen shot](src/images/readme-images/memory-game-screen.jpg)
 ___
@@ -45,8 +45,8 @@ ___
 - Use the **Gulp** build tool to process the code, including to convert the **ES6** code to **ES5** for distribution.
 
 - Shuffle the list of cards.
-- Loop through each card and create its **HTML**
-- Add each card's **HTML** to the page
+- Loop through each card and create its **HTML**.
+- Add each card's **HTML** to the page.
 - Set up the event listener for a card. If a card is clicked:
 
   - Display the card's symbol (put this functionality in another function that you call from this one)
