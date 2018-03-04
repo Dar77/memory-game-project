@@ -1,7 +1,9 @@
 NOT-USED
 node_modules
 dist/*
+.tmp/*
 .DS_Store
 .htmlhintrc
 .stylelintrc
 .eslintrc.json
+.babelrc
