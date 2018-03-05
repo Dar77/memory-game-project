@@ -2,9 +2,9 @@ ___
 
 # Memory Game Project
 
-For this project I wanted to make a card matching game in which cards are shuffled into a random order and placed face down. Cards are then revealed by clicking on them and compared to see if they match. If they do not match the cards are turned back face down. If they match they stay visible. The player must match all the cards in a set time. I wanted to make use of new **ES6** javascript to write the game and use the **gulp** build tool to process the **ES6** code back to **ES5** for the distribution version.
+For this project I wanted to create a card matching game in which cards are shuffled into a random order and hidden from view. Cards are then revealed by clicking on them and compared to see if they match. If they do not match the cards are turned back face down. If they match they stay visible. The player must match all the cards in a set time. I wanted to make use of new **ES6** javascript to write the game and use the **gulp** build tool to process the **ES6** code back to **ES5** for the distribution version.
 
-This project is adapted from Udacity's memory game project which is part of the **Frontend Nanodegree** [program](https://www.udacity.com/course/front-end-web-developer-nanodegree--nd001).
+This project is adapted from Udacity's memory game project which is part of the **Frontend Nanodegree** program.
 ___
 
 
