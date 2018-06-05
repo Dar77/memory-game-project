@@ -169,7 +169,7 @@ hideScreens();
 const allMatched = () => {
 	const ln = matchingCards.length;
 	if (ln === 16) {
-		const msg = `<div class="info del"><h2>All Matched!</h2><p>You have matched all the cards!</p><p>You completed the game in ${$('.timer').text()} and ${moveCount} moves.</p></div>`;
+		const msg = `<div class="info del"><h2>All Matched!</h2><p>You have matched all the cards!</p><p>You completed the game in ${moveCount} moves and had ${$('.timer').text()} time remaining.</p></div>`;
 		$('.all-matched').append(msg).fadeIn(1500);
 	}
 };
